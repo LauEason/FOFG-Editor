@@ -30,25 +30,42 @@
         {
             this.components = new System.ComponentModel.Container();
             this.filesTab = new FofgEditor.ExtTabControl();
+            this.tabPageContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainMenuStrip = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tabPageContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.mainMenuStrip.SuspendLayout();
+            this.openFileDialogMain = new System.Windows.Forms.OpenFileDialog();
             this.tabPageContextMenuStrip.SuspendLayout();
+            this.mainMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // filesTab
             // 
+            this.filesTab.ContextMenuStrip = this.tabPageContextMenuStrip;
             this.filesTab.Dock = System.Windows.Forms.DockStyle.Fill;
             this.filesTab.Location = new System.Drawing.Point(0, 25);
             this.filesTab.Name = "filesTab";
             this.filesTab.SelectedIndex = 0;
             this.filesTab.Size = new System.Drawing.Size(911, 380);
             this.filesTab.TabIndex = 0;
-            this.filesTab.ContextMenuStrip = tabPageContextMenuStrip;
+            // 
+            // tabPageContextMenuStrip
+            // 
+            this.tabPageContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.closeToolStripMenuItem});
+            this.tabPageContextMenuStrip.Name = "tabPageContextMenuStrip";
+            this.tabPageContextMenuStrip.Size = new System.Drawing.Size(109, 26);
+            // 
+            // closeToolStripMenuItem
+            // 
+            this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
+            this.closeToolStripMenuItem.Size = new System.Drawing.Size(108, 22);
+            this.closeToolStripMenuItem.Text = "Close";
             // 
             // mainMenuStrip
             // 
@@ -64,6 +81,9 @@
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.newToolStripMenuItem,
+            this.openToolStripMenuItem,
+            this.saveToolStripMenuItem,
+            this.saveAsToolStripMenuItem,
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(39, 21);
@@ -72,29 +92,39 @@
             // newToolStripMenuItem
             // 
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(102, 22);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
             this.newToolStripMenuItem.Text = "New";
             this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
+            // 
+            // openToolStripMenuItem
+            // 
+            this.openToolStripMenuItem.Name = "openToolStripMenuItem";
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
+            this.openToolStripMenuItem.Text = "Open";
+            this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
+            // 
+            // saveToolStripMenuItem
+            // 
+            this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
+            this.saveToolStripMenuItem.Text = "Save";
+            // 
+            // saveAsToolStripMenuItem
+            // 
+            this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
+            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
+            this.saveAsToolStripMenuItem.Text = "Save As";
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(102, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
-            // tabPageContextMenuStrip
+            // openFileDialogMain
             // 
-            this.tabPageContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.closeToolStripMenuItem});
-            this.tabPageContextMenuStrip.Name = "tabPageContextMenuStrip";
-            this.tabPageContextMenuStrip.Size = new System.Drawing.Size(109, 26);
-            // 
-            // closeToolStripMenuItem
-            // 
-            this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
-            this.closeToolStripMenuItem.Size = new System.Drawing.Size(108, 22);
-            this.closeToolStripMenuItem.Text = "Close";
+            this.openFileDialogMain.FileName = "openFileDialogMain";
             // 
             // MainForm
             // 
@@ -103,12 +133,13 @@
             this.ClientSize = new System.Drawing.Size(911, 405);
             this.Controls.Add(this.filesTab);
             this.Controls.Add(this.mainMenuStrip);
+            this.IsMdiContainer = true;
             this.MainMenuStrip = this.mainMenuStrip;
             this.Name = "MainForm";
             this.Text = "FOFG-Editor";
+            this.tabPageContextMenuStrip.ResumeLayout(false);
             this.mainMenuStrip.ResumeLayout(false);
             this.mainMenuStrip.PerformLayout();
-            this.tabPageContextMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -123,6 +154,10 @@
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.ContextMenuStrip tabPageContextMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem closeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem saveAsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
+        private System.Windows.Forms.OpenFileDialog openFileDialogMain;
     }
 }
 
