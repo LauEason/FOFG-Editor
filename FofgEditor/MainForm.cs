@@ -28,25 +28,28 @@ namespace FofgEditor
         private void prvOpenFilePath(string filePath)
         {
             // Create a rich text box and initialize style
-            RichTextBox fileRichTextBox = new RichTextBox();
+            ExtRichTextBox fileRichTextBox = new ExtRichTextBox();
             fileRichTextBox.Dock = DockStyle.Fill;
 
             if (filePath.Length != 0)
             {
                 // save path in rich text control name
                 fileRichTextBox.Name = filePath;
+                fileRichTextBox.filePath = filePath;
                 fileRichTextBox.LoadFile(filePath, RichTextBoxStreamType.PlainText);
             }
             else
             {
                 fileRichTextBox.Name = "NewFile*";                
                 fileRichTextBox.Text = "";
+                fileRichTextBox.filePath = "";
                 // set filePath with a name since it will be displayed as tab page name
                 filePath = fileRichTextBox.Name;
             }
 
             filesTab.TabPages.Add(Path.GetFileName(filePath));
             filesTab.TabPages[filesTab.TabPages.Count - 1].Controls.Add(fileRichTextBox);
+            filesTab.SelectTab(filesTab.TabPages.Count - 1);
         }
 
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
@@ -56,10 +59,23 @@ namespace FofgEditor
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (openFileDialogMain.ShowDialog() == DialogResult.OK)
+            OpenFileDialog openFileDialogLocal = new OpenFileDialog();
+            if (openFileDialogLocal.ShowDialog() == DialogResult.OK)
             {
-                prvOpenFilePath(openFileDialogMain.FileName);
+                prvOpenFilePath(openFileDialogLocal.FileName);
             }
+        }
+
+        private void closeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            foreach (Control control in this.filesTab.TabPages[this.filesTab.SelectedIndex].Controls)
+                if (control is ExtRichTextBox)
+                {
+                    ExtRichTextBox extRichTextBoxItem = (ExtRichTextBox)control;
+                    extRichTextBoxItem.SaveFileHelper(false);
+                }
+
+            this.filesTab.TabPages.Remove(this.filesTab.SelectedTab);
         }
     }
 }

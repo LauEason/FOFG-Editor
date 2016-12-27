@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.filesTab = new FofgEditor.ExtTabControl();
             this.tabPageContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainMenuStrip = new System.Windows.Forms.MenuStrip();
@@ -39,33 +38,25 @@
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.openFileDialogMain = new System.Windows.Forms.OpenFileDialog();
+            this.filesTab = new FofgEditor.ExtTabControl();
             this.tabPageContextMenuStrip.SuspendLayout();
             this.mainMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
-            // filesTab
-            // 
-            this.filesTab.ContextMenuStrip = this.tabPageContextMenuStrip;
-            this.filesTab.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.filesTab.Location = new System.Drawing.Point(0, 25);
-            this.filesTab.Name = "filesTab";
-            this.filesTab.SelectedIndex = 0;
-            this.filesTab.Size = new System.Drawing.Size(911, 380);
-            this.filesTab.TabIndex = 0;
-            // 
             // tabPageContextMenuStrip
             // 
+            this.tabPageContextMenuStrip.Font = new System.Drawing.Font("Microsoft YaHei UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.tabPageContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.closeToolStripMenuItem});
             this.tabPageContextMenuStrip.Name = "tabPageContextMenuStrip";
-            this.tabPageContextMenuStrip.Size = new System.Drawing.Size(109, 26);
+            this.tabPageContextMenuStrip.Size = new System.Drawing.Size(122, 30);
             // 
             // closeToolStripMenuItem
             // 
             this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
-            this.closeToolStripMenuItem.Size = new System.Drawing.Size(108, 22);
+            this.closeToolStripMenuItem.Size = new System.Drawing.Size(121, 26);
             this.closeToolStripMenuItem.Text = "Close";
+            this.closeToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
             // 
             // mainMenuStrip
             // 
@@ -73,7 +64,7 @@
             this.fileToolStripMenuItem});
             this.mainMenuStrip.Location = new System.Drawing.Point(0, 0);
             this.mainMenuStrip.Name = "mainMenuStrip";
-            this.mainMenuStrip.Size = new System.Drawing.Size(911, 25);
+            this.mainMenuStrip.Size = new System.Drawing.Size(911, 29);
             this.mainMenuStrip.TabIndex = 1;
             this.mainMenuStrip.Text = "mainMenuStrip";
             // 
@@ -85,46 +76,54 @@
             this.saveToolStripMenuItem,
             this.saveAsToolStripMenuItem,
             this.exitToolStripMenuItem});
+            this.fileToolStripMenuItem.Font = new System.Drawing.Font("Microsoft YaHei UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(39, 21);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(48, 25);
             this.fileToolStripMenuItem.Text = "File";
             // 
             // newToolStripMenuItem
             // 
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(138, 26);
             this.newToolStripMenuItem.Text = "New";
             this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
             // 
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(138, 26);
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(138, 26);
             this.saveToolStripMenuItem.Text = "Save";
             // 
             // saveAsToolStripMenuItem
             // 
             this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
+            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(138, 26);
             this.saveAsToolStripMenuItem.Text = "Save As";
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(138, 26);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
-            // openFileDialogMain
+            // filesTab
             // 
-            this.openFileDialogMain.FileName = "openFileDialogMain";
+            this.filesTab.ContextMenuStrip = this.tabPageContextMenuStrip;
+            this.filesTab.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.filesTab.Font = new System.Drawing.Font("Microsoft YaHei UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.filesTab.Location = new System.Drawing.Point(0, 29);
+            this.filesTab.Name = "filesTab";
+            this.filesTab.SelectedIndex = 0;
+            this.filesTab.Size = new System.Drawing.Size(911, 376);
+            this.filesTab.TabIndex = 0;
             // 
             // MainForm
             // 
@@ -157,7 +156,6 @@
         private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveAsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
-        private System.Windows.Forms.OpenFileDialog openFileDialogMain;
     }
 }
 

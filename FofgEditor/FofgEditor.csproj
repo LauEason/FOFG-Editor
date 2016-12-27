@@ -46,6 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ExtRichTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ExtRichTextBox.Designer.cs">
+      <DependentUpon>ExtRichTextBox.cs</DependentUpon>
+    </Compile>
     <Compile Include="ExtTabControl.cs">
       <SubType>Component</SubType>
     </Compile>
