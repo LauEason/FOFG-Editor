@@ -7,6 +7,14 @@ namespace FofgEditor
 {
     class ExtTabControl : TabControl
     {
+        // new file indexes... keep increasing
+        private int newFileIndex = 1;
+        public int NewFileIndex
+        {
+            set { this.newFileIndex = value; }
+            get { return this.newFileIndex; }
+        }
+
         public ExtTabControl() : base()
         {
             // commented - set DrawMode to support override OnDrawItem(); or override function will not get called.

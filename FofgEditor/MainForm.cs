@@ -40,9 +40,10 @@ namespace FofgEditor
             }
             else
             {
-                fileRichTextBox.Name = "NewFile*";                
+                fileRichTextBox.Name = "NewFile" + filesTab.NewFileIndex.ToString() + "*";
                 fileRichTextBox.Text = "";
                 fileRichTextBox.filePath = "";
+                filesTab.NewFileIndex++;
                 // set filePath with a name since it will be displayed as tab page name
                 filePath = fileRichTextBox.Name;
             }
@@ -68,6 +69,7 @@ namespace FofgEditor
 
         private void closeToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            // A tabpages' close menu is triggered; save file if it is not been saved
             foreach (Control control in this.filesTab.TabPages[this.filesTab.SelectedIndex].Controls)
                 if (control is ExtRichTextBox)
                 {
@@ -76,6 +78,20 @@ namespace FofgEditor
                 }
 
             this.filesTab.TabPages.Remove(this.filesTab.SelectedTab);
+        }
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            foreach (TabPage page in this.filesTab.TabPages)
+                foreach (Control control in page.Controls)
+                    if (control is ExtRichTextBox)
+                    {
+                        ExtRichTextBox extRichTextBoxItem = (ExtRichTextBox)control;
+                        // first switch to closing document
+                        this.filesTab.SelectTab(page);
+                        extRichTextBoxItem.SaveFileHelper(false);
+                        this.filesTab.TabPages.Remove(page);
+                    }
         }
     }
 }

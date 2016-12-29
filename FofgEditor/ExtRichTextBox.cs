@@ -28,6 +28,10 @@ namespace FofgEditor
         public bool SaveFileHelper(bool saveAs)
         {
             // query for saved path if current file is new file
+            if (this.Modified == true &&
+                MessageBox.Show("File" + filePath + "not saved, save it ?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
+                return false;
+
             if (filePath == "" && this.Modified)
             {
                 SaveFileDialog saveFileDialog = new SaveFileDialog();
