@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
+using System.IO;
 
-// override a new extended TabControl to show 'close' button - take 'x' as close icon
 namespace FofgEditor
 {
     class ExtTabControl : TabControl
@@ -34,7 +34,40 @@ namespace FofgEditor
                         break;
                     }
             }
-        }        
+        }
+
+        public void AddOpenedFilePage(string filePath)
+        {
+            // Create a rich text box and initialize style
+            ExtRichTextBox fileRichTextBox = new ExtRichTextBox();
+            fileRichTextBox.Dock = DockStyle.Fill;
+
+            if (filePath.Length != 0)
+            {
+                // save path in rich text control name
+                fileRichTextBox.Name = filePath + " ";
+                fileRichTextBox.filePath = filePath;
+                fileRichTextBox.LoadFile(filePath, RichTextBoxStreamType.PlainText);
+            }
+            else
+            {
+                fileRichTextBox.Name = "NewFile" + this.NewFileIndex.ToString() + " ";
+                fileRichTextBox.Text = "";
+                fileRichTextBox.filePath = "";
+                this.NewFileIndex++;
+                // set filePath with a name since it will be displayed as tab page name
+                filePath = fileRichTextBox.Name;
+            }
+
+            ExtTabPage newPage = new ExtTabPage(Path.GetFileName(filePath));
+
+            TabPages.Add(newPage);
+            TabPages[TabPages.Count - 1].Controls.Add(fileRichTextBox);            
+            SelectTab(TabPages.Count - 1);
+
+            // open existed file and add it into tabcontrol always trigger Modifed; reset it
+            fileRichTextBox.Modified = false;
+        }
 
         protected override void Dispose(bool disposing)
         {

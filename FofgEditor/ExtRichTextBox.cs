@@ -18,6 +18,7 @@ namespace FofgEditor
         public ExtRichTextBox() : base()
         {
             InitializeComponent();
+            this.AllowDrop = true;
         }
 
         protected override void OnPaint(PaintEventArgs pe)
@@ -25,14 +26,21 @@ namespace FofgEditor
             base.OnPaint(pe);
         }
 
-        public bool SaveFileHelper(bool saveAs)
+        public bool SaveFileHelper(bool saveAs, bool showHint)
         {
+            string hintFileName;
+
+            if (filePath == "")
+                hintFileName = this.Name;
+            else
+                hintFileName = filePath;
+                        
             // query for saved path if current file is new file
-            if (this.Modified == true &&
-                MessageBox.Show("File" + filePath + "not saved, save it ?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
+            if (showHint && this.Modified == true &&
+                MessageBox.Show("File: \"" + hintFileName + "\" is not saved, save it ?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
                 return false;
 
-            if (filePath == "" && this.Modified)
+            if (saveAs || (filePath == "" && this.Modified))
             {
                 SaveFileDialog saveFileDialog = new SaveFileDialog();
                 if (saveFileDialog.ShowDialog() == DialogResult.OK)

@@ -27,30 +27,27 @@ namespace FofgEditor
 
         private void prvOpenFilePath(string filePath)
         {
-            // Create a rich text box and initialize style
-            ExtRichTextBox fileRichTextBox = new ExtRichTextBox();
-            fileRichTextBox.Dock = DockStyle.Fill;
+            filesTab.AddOpenedFilePage(filePath);
+        }
 
-            if (filePath.Length != 0)
-            {
-                // save path in rich text control name
-                fileRichTextBox.Name = filePath;
-                fileRichTextBox.filePath = filePath;
-                fileRichTextBox.LoadFile(filePath, RichTextBoxStreamType.PlainText);
-            }
-            else
-            {
-                fileRichTextBox.Name = "NewFile" + filesTab.NewFileIndex.ToString() + "*";
-                fileRichTextBox.Text = "";
-                fileRichTextBox.filePath = "";
-                filesTab.NewFileIndex++;
-                // set filePath with a name since it will be displayed as tab page name
-                filePath = fileRichTextBox.Name;
-            }
+        private void prvSaveSpecficedFile(TabPage page, bool saveAs, bool showHint, bool disposePage)
+        {
+            // A tabpages' close menu is triggered; save file if it is not been saved
+            foreach (Control control in page.Controls)
+                if (control is ExtRichTextBox)
+                {
+                    ExtRichTextBox extRichTextBoxItem = control as ExtRichTextBox;                    
+                    extRichTextBoxItem.SaveFileHelper(saveAs, showHint);
+                }
 
-            filesTab.TabPages.Add(Path.GetFileName(filePath));
-            filesTab.TabPages[filesTab.TabPages.Count - 1].Controls.Add(fileRichTextBox);
-            filesTab.SelectTab(filesTab.TabPages.Count - 1);
+            if (disposePage)
+            {
+                page = this.filesTab.SelectedTab;
+                this.filesTab.TabPages.Remove(page);
+                foreach (Control control in page.Controls)
+                    control.Dispose();
+                page.Dispose();
+            }
         }
 
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
@@ -69,29 +66,37 @@ namespace FofgEditor
 
         private void closeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            // A tabpages' close menu is triggered; save file if it is not been saved
-            foreach (Control control in this.filesTab.TabPages[this.filesTab.SelectedIndex].Controls)
-                if (control is ExtRichTextBox)
-                {
-                    ExtRichTextBox extRichTextBoxItem = (ExtRichTextBox)control;
-                    extRichTextBoxItem.SaveFileHelper(false);
-                }
-
-            this.filesTab.TabPages.Remove(this.filesTab.SelectedTab);
+            prvSaveSpecficedFile(this.filesTab.TabPages[this.filesTab.SelectedIndex], false, true, true);
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             foreach (TabPage page in this.filesTab.TabPages)
-                foreach (Control control in page.Controls)
-                    if (control is ExtRichTextBox)
-                    {
-                        ExtRichTextBox extRichTextBoxItem = (ExtRichTextBox)control;
-                        // first switch to closing document
-                        this.filesTab.SelectTab(page);
-                        extRichTextBoxItem.SaveFileHelper(false);
-                        this.filesTab.TabPages.Remove(page);
-                    }
+            {
+                this.filesTab.SelectTab(page);
+                prvSaveSpecficedFile(page, false, true, true);
+
+            }
+        }
+
+        private void filesTab_DragDrop(object sender, DragEventArgs e)
+        {
+            // drag? just call open.
+            string path = ((System.Array)e.Data.GetData(DataFormats.FileDrop)).GetValue(0).ToString();
+            prvOpenFilePath(path);
+        }
+
+        private void filesTab_DragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+                e.Effect = DragDropEffects.All;
+            else
+                e.Effect = DragDropEffects.None;
+        }
+
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            prvSaveSpecficedFile(this.filesTab.TabPages[this.filesTab.SelectedIndex], false, false, false);
         }
     }
 }
